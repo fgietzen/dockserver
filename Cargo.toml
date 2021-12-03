@@ -5,12 +5,16 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+telegram_notifier = ["ureq"]
+
 [dependencies]
 ctrlc = "3.2.1"
 tokio = "1"
 tokio-stream = "0.1.8"
 shiplift = "0.7"
 job_scheduler = "1.2"
+ureq = {version = "2.3", optional = true}
 
 [profile.release]
 lto = true
