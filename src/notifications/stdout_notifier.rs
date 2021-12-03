@@ -15,7 +15,14 @@ impl StdoutNotifier {
 }
 
 impl Notifier for StdoutNotifier {
-	fn notify(&mut self, image: &ImageMetaData) {
-		println!("{}", StdoutNotifier::image_to_string(image));
+	fn notify(&mut self, images: &Vec<ImageMetaData>) {
+		if images.is_empty() {
+			println!("No updates available!");
+			return;
+		}
+
+		for image in images {
+			println!("{}", StdoutNotifier::image_to_string(image));
+		}
 	}
 }

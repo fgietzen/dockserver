@@ -1,7 +1,7 @@
 use job_scheduler::{Job, Schedule};
 
 use crate::docker_api;
-use crate::docker_api::ImagePull;
+use crate::docker_api::{ImageMetaData, ImagePull};
 use crate::notifications::Notifier;
 
 pub fn create_update_job<'a>(
@@ -26,17 +26,15 @@ fn search_for_updates(
 	let updated_images = images.iter()
 		.map(|meta| rt.block_on(repository.update_image(&meta)));
 
-	let images_with_update = updated_images.filter_map(|pull|
+	let images_with_update: Vec<ImageMetaData> = updated_images.filter_map(|pull|
 		return if let ImagePull::UpdateAvailable(i) = pull {
 			Some(i)
 		} else {
 			None
 		}
-	);
+	).collect();
 
-	for image in images_with_update {
-		for n in notifier.iter_mut() {
-			n.notify(&image);
-		}
+	for n in notifier.iter_mut() {
+		n.notify(&images_with_update);
 	}
 }
