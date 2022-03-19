@@ -41,8 +41,8 @@ impl DockerApi {
 			.filter(|image| image.repo_tags.is_some())
 			.flat_map(|image| image.repo_tags.as_ref().unwrap().iter()
 				.map(|name_tag| utils::split_name_and_repo(name_tag))
-				.map(|(name, tag)| ImageMetaData::new(&image.id, name, tag)))
-			.collect::<Vec<ImageMetaData>>();
+				.map(|(name, tag)| ImageMetaData::new(&image.id, name, tag))
+			).collect::<Vec<ImageMetaData>>();
 	}
 
 	pub async fn update_image(&self, image: &ImageMetaData) -> ImagePull {
