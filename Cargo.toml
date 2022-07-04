@@ -9,13 +9,13 @@ edition = "2021"
 telegram_notifier = ["ureq"]
 
 [dependencies]
-ctrlc = "3.2.1"
+ctrlc = "3.2"
 chrono = "0.4"
-cron = "0.9"
+cron = "0.11"
 tokio = { version = "1", default-features = false, features = ["rt", "macros"] }
-tokio-stream = "0.1.8"
+tokio-stream = "0.1"
 shiplift = { version = "0.7", default-features = false, features = ["unix-socket"] }
-ureq = { version = "2.3", optional = true }
+ureq = { version = "2.4", optional = true }
 
 [profile.release]
 lto = true
