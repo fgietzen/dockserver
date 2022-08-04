@@ -15,7 +15,7 @@ cron = "0.11"
 tokio = { version = "1", default-features = false, features = ["rt", "macros"] }
 tokio-stream = "0.1"
 shiplift = { version = "0.7", default-features = false, features = ["unix-socket"] }
-ureq = { version = "2.4", optional = true }
+ureq = { version = "2.5", optional = true }
 
 [profile.release]
 lto = true
