@@ -19,4 +19,5 @@ ureq = { version = "2.5", optional = true }
 
 [profile.release]
 lto = true
+strip = "debuginfo"
 panic = "abort"
