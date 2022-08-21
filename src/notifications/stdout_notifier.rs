@@ -1,8 +1,7 @@
 use crate::docker_api::ImageMetaData;
 use crate::notifications::Notifier;
 
-pub struct StdoutNotifier {
-}
+pub struct StdoutNotifier {}
 
 impl StdoutNotifier {
 	pub fn new() -> Self {

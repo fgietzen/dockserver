@@ -64,7 +64,7 @@ impl DockerApi {
 			.get(format!("{}:{}", image.name(), image.tag()))
 			.inspect().await.unwrap();
 
-		if old_id.eq(&pulled_image.id) {
+		if old_id == &pulled_image.id {
 			return ImagePull::UpToDate(image.clone());
 		}
 
