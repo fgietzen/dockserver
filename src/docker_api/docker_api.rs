@@ -35,12 +35,12 @@ impl DockerApi {
 	}
 
 	pub async fn list_images(&self) -> Vec<ImageMetaData> {
-		return self.docker_api.images().list(&ImageListOptions::default()).await
-			.expect("Could not retrieve image list")
-			.iter()
+		let images = self.docker_api.images().list(&ImageListOptions::default()).await
+			.expect("Could not retrieve image list");
+		return images.iter()
 			.filter(|image| image.repo_tags.is_some())
 			.flat_map(|image| image.repo_tags.as_ref().unwrap().iter()
-				.map(|name_tag| utils::split_name_and_repo(name_tag))
+				.filter_map(|name_tag| utils::split_name_and_repo(name_tag).ok())
 				.map(|(name, tag)| ImageMetaData::new(&image.id, name, tag))
 			).collect::<Vec<ImageMetaData>>();
 	}

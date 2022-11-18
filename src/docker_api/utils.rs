@@ -1,10 +1,12 @@
-pub fn split_name_and_repo<S: Into<String>>(name_tag: S) -> (String, String) {
-	let name_tag = name_tag.into();
-	let mut split = name_tag.split(":");
+pub fn split_name_and_repo(name_tag: &str) -> Result<(&str, &str), &str> {
+	let split = name_tag.split(":")
+        .collect::<Vec<&str>>();
 
-	let name = split.next().unwrap();
-	let tag = split.next().unwrap();
-	return (name.to_string(), tag.to_string());
+    if split.len() != 2 {
+        return Err("Failed to split string into string and tag!");
+    }
+
+    return Ok((split[0], split[1]));
 }
 
 #[cfg(test)]
@@ -13,6 +15,8 @@ mod tests {
 
 	#[test]
 	fn split_name_and_repo_simple() {
-		assert_eq!(split_name_and_repo("abc:def"), ("abc".to_string(), "def".to_string()));
+        let res = split_name_and_repo("abc:def");
+        assert!(res.is_ok());
+		assert_eq!(res.unwrap(), ("abc", "def"));
 	}
 }
