@@ -68,8 +68,7 @@ impl DockerApi {
 			return ImagePull::UpToDate(image.clone());
 		}
 
-		let pulled_image_metadata =
-			ImageMetaData::new(pulled_image.id, image.name().clone(), image.tag().clone());
+		let pulled_image_metadata = ImageMetaData::new(pulled_image.id, image.name(), image.tag());
 		return ImagePull::UpdateAvailable(pulled_image_metadata);
 	}
 }
